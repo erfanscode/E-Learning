@@ -11,14 +11,19 @@ WORKDIR /education
 
 # Copy files
 COPY ./requirements.txt /tmp/requirements.txt
+COPY ./requirements.dev.txt /tmp/requirements.dev.txt
 COPY . .
 
 # Set the environment variable PATH
 ENV PATH="/py/bin:$PATH"
 
 # Install dependencies
+ARG DEV=false
 RUN python -m venv /py && \
     /py/bin/pip install -r /tmp/requirements.txt && \
+    if [ $DEV = "true" ]; \
+        then /py/bin/pip install -r /tmp/requirements.dev.txt; \
+    fi && \
     rm -rf /tmp
 
 # Create and configure user
