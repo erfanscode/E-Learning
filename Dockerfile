@@ -14,11 +14,12 @@ COPY ./requirements.txt /tmp/requirements.txt
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt
 COPY . .
 
+ARG DEV=false
+
 # Set the environment variable PATH
 ENV PATH="/py/bin:$PATH"
 
 # Install dependencies
-ARG DEV=false
 RUN python -m venv /py && \
     /py/bin/pip install -r /tmp/requirements.txt && \
     if [ $DEV = "true" ]; \
