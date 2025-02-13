@@ -1,0 +1,27 @@
+<nav class="navbar">
+  <div class="container">
+
+    <div class="navbar-header">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <a href="#">
+        <h4>E-<span>Learning</span></h4>
+      </a>
+    </div>
+
+    <div class="navbar-menu" id="open-navbar1">
+      <ul class="navbar-nav">
+        {% if request.user.is_authenticated %}
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">خروج</button>
+          </form>
+        {% else %}
+          <li class="active"><a href="{% url 'login' %}">ورود</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

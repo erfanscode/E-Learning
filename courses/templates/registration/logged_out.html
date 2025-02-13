@@ -1,0 +1,11 @@
+{% extends 'parent/base.html' %}
+
+{% block title %}Logged out{% endblock %}
+
+{% block content %}
+<div class="message-box">
+  <span class="message-icon">✓</span>
+  <p class="message-text">با موفقیت خارج شدید. برای ورود مجدد روی لینک کلیک کنید</p>
+  <a href="{% url 'login' %}" class="login-link">ورود</a>
+</div>
+{% endblock %}
