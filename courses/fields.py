@@ -6,20 +6,20 @@ class OrderField(models.PositiveIntegerField):
     ''' An OrderField class that inherits from PositiveIntegerField '''
     def __init__(self, for_fields=None, *args, **kwargs):
         self.for_fields = for_fields
-        super().__inti__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def pre_save(self, model_instance, add):
         if getattr(model_instance, self.attname) is None:
             # No current value
             try:
                 qs = self.model.objects.all()
-                if self.for__fields:
+                if self.for_fields:
                     '''
                         Filter by objects with the same field values
                         for the fields in "for_fields"
                     '''
                     query = {field: getattr(model_instance, field)
-                             for field in self.for__fields}
+                             for field in self.for_fields}
                     qs = qs.filter(**query)
                 # Get the order of the last item
                 last_item = qs.lastest(self.attname)
