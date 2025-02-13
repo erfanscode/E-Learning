@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 class OrderField(models.PositiveIntegerField):
     ''' An OrderField class that inherits from PositiveIntegerField '''
     def __init__(self, for_fields=None, *args, **kwargs):
-        self.for__fields = for_fields
+        self.for_fields = for_fields
         super().__inti__(*args, **kwargs)
 
     def pre_save(self, model_instance, add):
