@@ -476,6 +476,7 @@ a {
 /* New Create Button Styles */
 .create-button {
   position: fixed;
+  flex-direction: row-reverse;
   bottom: 2rem;
   right: 2rem;
   background-color: #0ea5e9;
