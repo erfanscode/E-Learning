@@ -1,0 +1,17 @@
+{% extends 'parent/base.html' %}
+
+{% block title %}حذف دوره{% endblock %}
+
+{% block content %}
+<div class="delete-course-container">
+  <h2 class="delete-course-title">حذف دوره " {{ object.title }} "</h2>
+  <form method="post" class="message-box-delete">
+    {% csrf_token %}
+    <p class="message-text">آیا از حدف دوره "{{ object.title }}" مطمئن هستید؟</p>
+    <div class="del-action">
+      <input type="submit" class="del-btn btn-danger" value="بله">
+      <a href="{% url 'courses:manage_course_list' %}" class="del-btn btn-primary">خیر</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

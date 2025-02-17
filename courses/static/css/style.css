@@ -27,7 +27,7 @@ a {
 /* Start navbar */
 
 .navbar,
-.navbar > .container {
+.navbar>.container {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -36,8 +36,9 @@ a {
 }
 
 @media (max-width: 768px) {
+
   .navbar,
-  .navbar > .container {
+  .navbar>.container {
     display: block;
   }
 }
@@ -117,7 +118,7 @@ a {
   margin-bottom: 0.2rem;
 }
 
-.navbar-header > a {
+.navbar-header>a {
   font-weight: 500;
   color: #3c4250;
 }
@@ -164,24 +165,24 @@ a {
   }
 }
 
-.navbar-nav > li > a {
+.navbar-nav>li>a {
   color: #3c4250;
   text-decoration: none;
   display: inline-block;
   padding: 0.5rem 1rem;
 }
 
-.navbar-nav > li > a:hover {
+.navbar-nav>li>a:hover {
   color: #66f;
 }
 
 @media (max-width: 768px) {
-  .navbar-nav > li > a {
+  .navbar-nav>li>a {
     border-bottom: 1px solid #eceef3;
   }
 }
 
-.navbar-nav > li.active > a {
+.navbar-nav>li.active>a {
   color: #66f;
 }
 
@@ -219,7 +220,7 @@ a {
   display: block !important;
 }
 
-.dropdown > .separator {
+.dropdown>.separator {
   height: 1px;
   width: 100%;
   margin-top: 9px;
@@ -232,7 +233,7 @@ a {
 }
 
 /* Custom */
-.navbar .navbar-header > a span {
+.navbar .navbar-header>a span {
   color: #66f;
 }
 
@@ -334,10 +335,11 @@ a {
 
 @media (max-width: 480px) {
   .login-container {
-      margin: 1rem;
-      padding: 1.5rem;
+    margin: 1rem;
+    padding: 1.5rem;
   }
 }
+
 /* ----- End Login ----- */
 /* ----- Logged Out */
 .message-box {
@@ -370,6 +372,7 @@ a {
 .login-link {
   color: #3a86ff;
 }
+
 /* ----- End Logged Out */
 /* ----- Courses ----- */
 .header {
@@ -380,7 +383,8 @@ a {
   text-align: right;
 }
 
-.course-container, .h-container {
+.course-container,
+.h-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
@@ -410,7 +414,8 @@ a {
   overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  position: relative; /* Add this to position the action buttons */
+  position: relative;
+  /* Add this to position the action buttons */
 }
 
 .course-card:hover {
@@ -566,26 +571,27 @@ a {
   left: 0;
   right: 0;
   height: 4rem;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
   pointer-events: none;
 }
 
 /* Responsive adjustments */
 @media (max-width: 640px) {
   .courses-grid {
-      grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
   }
 
   .header {
-      padding: 1rem;
+    padding: 1rem;
   }
 
   .create-button {
-      bottom: 1.5rem;
-      right: 1.5rem;
-      padding: 0.875rem;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    padding: 0.875rem;
   }
 }
+
 /* ----- End Courses ----- */
 /* ----- Create Courses ----- */
 .c-course-container,
@@ -720,11 +726,80 @@ a {
 
 @media (max-width: 640px) {
   .course-form {
-      padding: 1.5rem;
+    padding: 1.5rem;
   }
 
   .header {
-      padding: 1rem;
+    padding: 1rem;
   }
 }
+
 /* ----- End Create Courses ----- */
+/* ----- Delete Courses ----- */
+.delete-course-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 4rem auto;
+  max-width: 1200px;
+  padding: 1rem 0;
+}
+
+.delete-course-title {
+  direction: rtl;
+}
+
+.message-box-delete {
+  width: 500px;
+  margin: 20px auto;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  color: #495057;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.message-box-delete p {
+  direction: rtl;
+  font-size: 16px;
+}
+
+.del-action {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 1rem;
+}
+
+.del-btn {
+  font-size: 20px;
+  color: white;
+  padding: 0.5rem 2.5rem;
+  border-radius: 8px;
+}
+
+.btn-danger {
+  border: none;
+  background-color: #ff453a;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-danger:hover {
+  background-color: #dc2f02;
+}
+
+.btn-primary {
+  background-color: #495057;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #333;
+}
+/* ----- End Delete Courses ----- */
