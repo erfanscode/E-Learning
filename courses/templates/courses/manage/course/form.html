@@ -1,0 +1,73 @@
+{% extends 'parent/base.html' %}
+
+{% block title %}
+    {% if object %}
+        ویرایش دوره
+    {% else %}
+        ایجاد دوره
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+      <div class="header">
+        <div class="c-course-container">
+          <div class="header-content">
+            <a href="{% url 'courses:manage_course_list' %}" class="back-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+              </svg>
+              لیست دوره ها
+            </a>
+            {% if object %}  
+                <h1>ویرایش دوره " {{ object.title }} "</h1>
+            {% else %}
+                <h1>ایجاد دوره</h1>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="course-form-container">
+        <form method="post" class="course-form">
+            {% csrf_token %}
+            <div class="course-form-group">
+                <label for="{{ form.subject.id_for_label }}">موضوع</label>
+                {{ form.subject }}
+                <p class="helper-text">لطفا موضوع دوره را انتخاب کنید</p>
+            </div>
+            
+            <div class="course-form-group">
+                <label for="{{ form.title.id_for_label }}">عنوان</label>
+                {{ form.title }}
+                <p class="helper-text">یک نام مناسب برای دوره خود بنویسید</p>
+            </div>
+            
+            <div class="course-form-group">
+                <label for="{{ form.slug.id_for_label }}">اسلاگ</label>
+                {{ form.slug }}
+                <p class="helper-text">یک نام انگلیسی متناسب با عنوان دوره بنویسید</p>
+            </div>
+
+            <div class="course-form-group">
+                <label for="{{ form.overview.id_for_label }}">توضیحات</label>
+                {{ form.overview }}
+                <p class="helper-text">توضیحات مربوط به دوره را بنویسید</p>
+            </div>
+
+            <div class="course-form-group">
+                <label>تعیین وضعیت دوره</label>
+                <div class="status-toggle">
+                    <div class="status-option" onclick="this.classList.add('draft'); this.nextElementSibling.classList.remove('published')">
+                        پیش نویس
+                    </div>
+                    <div class="status-option" onclick="this.classList.add('published'); this.previousElementSibling.classList.remove('draft')">
+                        منتشر شده
+                    </div>
+                </div>
+            </div>
+
+            <input type="submit" class="submit-button" value="ذخیره">
+        </form>
+      </div>
+{% endblock %}
