@@ -1,3 +1,5 @@
+from django.shortcuts import redirect, get_object_or_404
+from django.views.generic.base import TemplateResponseMixin, View
 from django.views.generic.list import ListView
 from django.views.generic.edit import (
     CreateView,
@@ -9,7 +11,9 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin
 )
 from django.urls import reverse_lazy
+
 from .models import Course
+from .forms import ModuleFormSet
 
 
 # Mixins
@@ -76,3 +80,50 @@ class CourseDeleteView(OwnerCourseMixin, DeleteView):
     ''' Deleting a course, restricted to the owner of the course '''
     template_name = 'courses/manage/course/delete.html'
     permission_required = 'courses.delete_course'
+
+
+class CourseModuleUpdateView(TemplateResponseMixin, View):
+    ''' Managing course modules using a formset '''
+    template_name = 'courses/manage/module/formset.html'
+    course = 0
+
+    def get_formset(self, data=None):
+        ''' Create and return a formset for the course mudules '''
+        return ModuleFormSet(
+            instance=self.course,
+            data=data
+        )
+
+    def dispatch(self, request, pk):
+        ''' Ensure the course exists and is owned by the current user '''
+        self.course = get_object_or_404(
+            Course,
+            id=pk,
+            owner=request.user
+        )
+        return super().dispatch(request, pk)
+
+    def get(self, request, *args, **kwargs):
+        '''
+            Handle GET request:
+            display the formset for editing modules
+        '''
+        formset = self.get_formset()
+        return self.render_to_response({
+            'course': self.course,
+            'formset': formset
+        })
+
+    def post(self, request, *args, **kwargs):
+        '''
+            Handle POST request:
+            validate and save the formset
+        '''
+        formset = self.get_formset(data=request.POST)
+        if formset.is_valid():
+            formset.save()
+            return redirect('manage_course_list')
+        return self.render_to_response({
+            'course': self.course,
+            'formset': formset
+        })
