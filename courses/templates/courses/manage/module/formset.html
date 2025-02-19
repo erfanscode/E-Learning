@@ -1,0 +1,51 @@
+{% extends 'parent/base.html' %}
+
+{% block title %} ویرایش {% endblock %}
+
+{% block content %}
+      <div class="header">
+        <div class="c-course-container">
+          <div class="header-content">
+            <a href="{% url 'courses:manage_course_list' %}" class="back-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+              </svg>
+              لیست دوره ها
+            </a>
+            <h1>ویرایش دوره " {{ course.title }} "</h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-form-container">
+        <h2>ماژول‌های دوره</h2>
+        <form method="post" class="course-form">
+            {% csrf_token %}
+            
+            {% for form in formset %}
+                <div class="course-form-group">
+                    <label for="{{ form.title.id_for_label }}">عنوان</label>
+                    {{ form.title }}
+                    <p class="helper-text">یک نام مناسب برای ماژول بنویسید</p>
+                </div>
+
+                <div class="course-form-group">
+                    <label for="{{ form.description.id_for_label }}">توضیحات</label>
+                    {{ form.description }}
+                    <p class="helper-text">توضیحات ماژول را بنویسید</p>
+                </div>
+
+                <div class="course-form-group">
+                    <label for="{{ form.DELETE.id_for_label }}" class="checkbox-label">پاک کردن</label>
+                    {{ form.DELETE }}
+                    <p class="helper-text helper-text-checkbox">اگر از حذف این ماژول مطمئن هستید تیک این گزینه را فعال کنید</p>
+                </div>
+            {% endfor %}
+
+            {{ formset.management_form }} <!-- Control the number of forms -->
+
+            <input type="submit" class="submit-button" value="ذخیره ماژول">
+        </form>
+      </div>
+{% endblock %}

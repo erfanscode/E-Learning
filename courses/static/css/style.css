@@ -560,6 +560,17 @@ a {
   color: #dc2626;
 }
 
+.edit-module-button {
+  width: max-content;
+  padding: 0 5px;
+  color: #0a9396;
+}
+
+.edit-module-button:hover {
+  background-color: #fef2f2;
+  color: #005f73;
+}
+
 /* Add overlay gradient to make buttons more visible on light images */
 .course-image-container {
   position: relative;
@@ -668,7 +679,8 @@ a {
   transition: border-color 0.2s;
 }
 
-.course-form-group input:focus {
+.course-form-group input:focus,
+.course-form-group textarea:focus {
   outline: none;
   border-color: #0ea5e9;
   box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
@@ -723,6 +735,23 @@ a {
   color: #71717a;
   margin-top: 0.5rem;
 }
+
+/* extra style for edit course modules */
+.course-form-group input[type="checkbox"] {
+  width: auto;
+  transform: translate(-58px, -24px);
+}
+
+.helper-text-checkbox {
+  margin-top: -1rem;
+}
+
+.course-form-group:nth-of-type(3) {
+    border-bottom: 2px solid #bbb;
+    padding-bottom: 15px;
+}
+
+/* end */
 
 @media (max-width: 640px) {
   .course-form {
