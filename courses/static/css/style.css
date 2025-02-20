@@ -750,7 +750,11 @@ a {
     border-bottom: 2px solid #bbb;
     padding-bottom: 15px;
 }
-
+/* end */
+/* extra style for edit content modules */
+.course-form-group input[type="file"] {
+  width: auto;
+}
 /* end */
 
 @media (max-width: 640px) {
