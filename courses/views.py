@@ -133,12 +133,17 @@ class CourseModuleUpdateView(TemplateResponseMixin, View):
 
 
 class ContentCreateUpdateView(TemplateResponseMixin, View):
+    ''' create or update content for a specific course module '''
     module = None
     model = None
     obj = None
     template_name = 'courses/manage/content/form.html'
 
     def get_model(self, model_name):
+        '''
+            Dynamically fetch the model based
+            on the content type (e.g., text, file, image, video)
+        '''
         if model_name in ['text', 'file', 'image', 'video']:
             return apps.get_model(
                 app_label='courses',
@@ -147,6 +152,10 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
         return None
 
     def get_form(self, model, *args, **kwargs):
+        '''
+            Generate a modelform for the given model
+            excluding owner, order, created, and updated fields
+        '''
         Form = modelform_factory(
             model,
             exclude=[
@@ -159,6 +168,10 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
         return Form(*args, **kwargs)
 
     def dispatch(self, request, module_id, model_name, id=None):
+        '''
+            Ensure that the module exists and belongs to the
+            logged-in user, and retrieve the corresponding content model
+        '''
         self.module = get_object_or_404(
             Module,
             id=module_id,
@@ -167,6 +180,7 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
         self.model = self.get_model(model_name)
 
         if id:
+            # Fetch existing content if an ID is provided
             self.obj = get_object_or_404(
                 self.model,
                 id=id,
@@ -175,6 +189,10 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
         return super().dispatch(request, module_id, model_name, id)
 
     def get(self, request, module_id, model_name, id=None):
+        '''
+            Handle GET request:
+            Display the content form for editing or creating content
+        '''
         form = self.get_form(self.model, instance=self.obj)
         return self.render_to_response({
             'form': form,
@@ -182,6 +200,10 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
         })
 
     def post(self, request, module_id, model_name, id=None):
+        '''
+            Handle POST request:
+            Validate and save the form, create new content if necessary
+        '''
         form = self.get_form(
             self.model,
             instance=self.obj,
