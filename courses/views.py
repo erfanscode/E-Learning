@@ -226,3 +226,21 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
             'form': form,
             'object': self.obj
         })
+
+
+class ContentDeleteView(View):
+    ''' Deleting a specific content item '''
+    def post(self, request, id):
+        '''
+            Handle POST request:
+            Delete the content item and redirect to the module content list
+        '''
+        content = get_object_or_404(
+            Content,
+            id=id,
+            module__course__owner=request.user
+        )
+        module = content.module
+        content.item.delete()
+        content.delete()
+        return redirect('courses:module_content_list', module.id)
