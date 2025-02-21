@@ -22,8 +22,10 @@
         <h2>ماژول‌های دوره</h2>
         <form method="post" class="course-form">
             {% csrf_token %}
+            {{ formset.management_form }} <!-- Control the number of forms -->
             
             {% for form in formset %}
+                {{ form.id }}
                 <div class="course-form-group">
                     <label for="{{ form.title.id_for_label }}">عنوان</label>
                     {{ form.title }}
@@ -42,8 +44,6 @@
                     <p class="helper-text helper-text-checkbox">اگر از حذف این ماژول مطمئن هستید تیک این گزینه را فعال کنید</p>
                 </div>
             {% endfor %}
-
-            {{ formset.management_form }} <!-- Control the number of forms -->
 
             <input type="submit" class="submit-button" value="ذخیره ماژول">
         </form>
