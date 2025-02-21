@@ -33,8 +33,8 @@
       <div class="course-form-container">
         <form method="post" enctype="multipart/form-data" class="course-form">
             {% csrf_token %}
-
-            <div class="course-form-group">
+            {{ form.as_p }}
+            <!-- <div class="course-form-group">
                 <label for="{{ form.title.id_for_label }}">عنوان</label>
                 {{ form.title }}
                 <p class="helper-text">یک عنوان مناسب برای محتوای خود بنویسید</p>
@@ -44,7 +44,7 @@
                 <label for="{{ form.file.id_for_label }}">فایل</label>
                 {{ form.file }}
                 <p class="helper-text">فایل مربوط به محتوا را بارگذاری کنید</p>
-            </div>
+            </div> -->
 
             <input type="submit" class="submit-button" value="ذخیره">
         </form>
