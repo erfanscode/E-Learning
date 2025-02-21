@@ -36,6 +36,10 @@
                   </a>
                   <!-- Module Edit -->
                    <a href="{% url 'courses:course_module_update' course.id %}" class="action-button edit-module-button">ویرایش ماژول</a>
+                  <!-- Manage Content -->
+                   {% if course.modules.count > 0 %}
+                        <a href="{% url 'courses:module_content_list' course.modules.first.id %}" class="action-button manage-content-button">مدیریت محتوا</a>
+                   {% endif %}
                 </div>
               </div>
               <div class="course-content">
