@@ -186,7 +186,7 @@
     })[0].addEventListener('sortupdate', function(e) {
 
       contentOrder = {};
-      var contents = document.querySelectorAll('#module-content div');
+      var contents = document.querySelectorAll('#module-content div[data-id]');
       contents.forEach(function (content, index) {
         // update content index
         contentOrder[content.dataset.id] = index;
@@ -194,7 +194,7 @@
         options['body'] = JSON.stringify(contentOrder);
 
         // send HTTP request
-        fetch(ContentOrderUrl, options);
+        fetch(ContentOrderUrl, options)
       });
     });
 {% endblock %}
