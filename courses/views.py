@@ -271,6 +271,10 @@ class ModuleContentListView(TemplateResponseMixin, View):
 class ModuleOrderView(CsrfExemptMixin,
                       JsonRequestResponseMixin,
                       View):
+    '''
+        Loop through the items in the JSON request
+        and update the 'order' field for each module
+    '''
     def post(self, request):
         for id, order in self.request_json.items():
             Module.objects.filter(
@@ -283,6 +287,10 @@ class ModuleOrderView(CsrfExemptMixin,
 class ContentOrderView(CsrfExemptMixin,
                        JsonRequestResponseMixin,
                        View):
+    '''
+        Loop through the items in the JSON request
+        and update the 'order' field for each content
+    '''
     def post(self, request):
         for id, order in self.request_json.items():
             Content.objects.filter(
