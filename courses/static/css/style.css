@@ -886,11 +886,15 @@ a {
   margin-bottom: 0.5rem;
 }
 
-.module-content {
+#module-content {
   margin: 0.5rem 0 4rem 0;
 }
 
-.module-content-h2 {
+#module-content div.placeholder {
+  border: 1px dashed #71717a;
+}
+
+#module-content-h2 {
   font-size: 1.2rem;
 }
 
@@ -952,14 +956,14 @@ a {
 
 /* Sidebar Styles */
 .modules-sidebar {
-  background: white;
+  background-color: white;
   border-radius: 0.5rem;
   padding: 1.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   height: fit-content;
 }
 
-.module-list {
+#modules {
   direction: rtl;
   list-style: none;
   padding: 0;
@@ -967,6 +971,13 @@ a {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+}
+
+.modules-sidebar ul li.placeholder {
+  background-color: #f8f9fa;
+  border: 1px dashed #71717a;
+  width: inherit !important;
+  border-radius: 0.375rem;
 }
 
 .module-item {

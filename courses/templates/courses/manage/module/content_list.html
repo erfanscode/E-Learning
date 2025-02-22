@@ -33,7 +33,7 @@
 
       <div class="module">
         <h2 class="module-content-h2">محتوای ماژول:</h2>
-        <div class="module-content">
+        <div id="module-content">
           {% for content in module.contents.all %}
               <div data-id="{{ content.id }}">
                 {% with item=content.item %}
@@ -118,11 +118,11 @@
     </div>
 
     <aside class="modules-sidebar">
-      <ul class="module-list">
+      <ul id="modules">
         {% for m in course.modules.all %}
             <li data-id="{{ m.id }}" class="module-item {% if m == module %}active{% endif %}">
               <a href="{% url 'courses:module_content_list' m.id %}" class="module-link">
-                <h3>ماژول {{ m.order|add:1 }}</h3>
+                <h3>ماژول <span class="order">{{ m.order|add:1 }}</span></h3>
                 <p>{{ m.title }}</p>
               </a>
             </li>
@@ -143,4 +143,58 @@
   </div>
 </div>
 {% endwith %}
+{% endblock %}
+
+{% block include_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5sortable/0.14.0/html5sortable.min.js"
+        integrity="sha512-B/yiMlkxhtHzzJxPa5kNOO/+8cq0Fj4ndMUxVo2kGunCCH8g8XrPnzqg+sOon3hQ8RaEY2YytH+PIseTtfstjg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}
+
+{% block domready %}
+    var options = {
+      method: 'POST',
+      mode: 'same-origin'
+    }
+    const moduleOrderUrl = "{% url 'courses:module_order' %}";
+
+    sortable('#modules', {
+      forcePlaceholderSize: true,
+      placeholderClass: 'placeholder'
+    })[0].addEventListener('sortupdate', function(e) {
+
+      modulesOrder = {};
+      var modules = document.querySelectorAll('#modules li');
+      modules.forEach(function (module, index) {
+        // update module index
+        modulesOrder[module.dataset.id] = index;
+        // update index in HTML element
+        module.querySelector('.order').innerHTML = index + 1;
+        // add new order to the HTTP request options
+        options['body'] = JSON.stringify(modulesOrder);
+
+        // send HTTP request
+        fetch(moduleOrderUrl, options)
+      });
+    });
+
+    const ContentOrderUrl = "{% url 'courses:content_order' %}";
+
+    sortable('#module-content', {
+      forcePlaceholderSize: true,
+      placeholderClass: 'placeholder'
+    })[0].addEventListener('sortupdate', function(e) {
+
+      contentOrder = {};
+      var contents = document.querySelectorAll('#module-content div');
+      contents.forEach(function (content, index) {
+        // update content index
+        contentOrder[content.dataset.id] = index;
+        // add new order to the HTTP request options
+        options['body'] = JSON.stringify(contentOrder);
+
+        // send HTTP request
+        fetch(ContentOrderUrl, options);
+      });
+    });
 {% endblock %}
