@@ -1,0 +1,82 @@
+{% extends 'parent/base.html' %}
+
+{% block title %}
+
+    {% if subject %}
+      دوره های {{ subject.title }}
+    {% else %}
+      لیست دوره های آموزشی
+    {% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="header">
+      <div class="h-container">
+        {% if subject %}
+            <h1> لیست دوره های {{ subject.title }} </h1>
+        {% else %}
+            <h1>لیست دوره‌های آموزشی</h1>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="all-courses-container">
+        <div class="content-wrapper">
+            <div class="courses-grid all-courses-grid">
+                <!-- Course Card -->
+                {% for course in courses %}
+                  {% with subject=course.subject %}
+                      <article class="course-card">
+                          <img src="/static/svg/placeholder.svg?height=160&width=300" alt="Web Development Fundamentals" class="course-image">
+                          <div class="course-content">
+                              <h2 class="course-title">
+                                <a href="{% url 'courses:course_detail' course.slug %}">{{ course.title }}</a>
+                              </h2>
+                              <p>
+                                <a href="{% url 'courses:course_list_subject' subject.slug %}">{{ subject }}</a>
+                              </p>
+                              <div class="course-meta">
+                                  <div class="meta-item">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                                      </svg>
+                                      {{ course.total_modules }} ماژول
+                                  </div>
+                              </div>
+                              <div class="course-creator">
+                                  <img src="/static/svg/placeholder.svg?height=32&width=32" alt="Sarah Wilson" class="creator-avatar">
+                                  <span class="creator-name">{{ course.owner.username }}</span>
+                              </div>
+                          </div>
+                      </article>
+                  {% endwith %}
+                {% endfor %}
+            </div>
+
+            <aside class="categories-sidebar">
+                <h2 class="categories-title">دسته بندی‌ها</h2>
+                <ul class="categories-list">
+                    <a href="{% url 'course_list' %}" class="category-name">
+                      <li class="category-card {% if not subject %}active{% endif %}">
+                        <h4 class="category-card-h4">همه دوره‌ها</h4>
+                      </li>
+                    </a>
+                    {% for s in subjects %}
+                        <a href="{% url 'courses:course_list_subject' s.slug %}">
+                          <li class="category-card {% if subject == s %}active{% endif %}">
+                              <h4 class="category-card-h4">{{ s.title }}</h4>
+                              <div class="course-count">
+                                {{ s.total_courses }} دوره
+                              </div>
+                          </li>
+                        </a>
+                    {% endfor %}
+                </ul>
+            </aside>
+        </div>
+    </div>
+
+{% endblock %}
