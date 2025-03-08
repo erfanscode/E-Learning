@@ -339,7 +339,6 @@ a {
     padding: 1.5rem;
   }
 }
-
 /* ----- End Login ----- */
 /* ----- Logged Out */
 .message-box {
@@ -1255,3 +1254,143 @@ a {
   margin: 4rem auto;
 }
 /* ----- End Course Detail ----- */
+/* ----- Student Registration Styles ----- */
+.registration-container {
+  max-width: 500px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  margin: 4rem auto 0 auto;
+  padding: 2.5rem;
+  transition: all 0.3s ease;
+}
+
+.login-header {
+  margin-bottom: 2.5rem;
+}
+
+.login-header h1 {
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  color: #1f2937;
+}
+
+.form-group {
+  direction: rtl;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.form-group label {
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: #4b5563;
+  margin-bottom: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.form-group input {
+  direction: ltr;
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: #f9fafb;
+  transition: all 0.25s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.register-button {
+  width: 100%;
+  padding: 0.875rem;
+  margin-top: 1.25rem;
+  background-color: #8338ec;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.register-button:hover {
+  background-color: #059669;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.helper-text {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.helper-text.error {
+  color: #ef4444;
+  font-weight: 500;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.login-link a {
+  color: #3b82f6;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.login-link a:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.message-box.message-error {
+  background-color: #fee2e2;
+  border-left: 4px solid #ef4444;
+  color: #b91c1c;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.message-box .message-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.75rem;
+  color: #b91c1c;
+}
+
+@media (max-width: 480px) {
+  .registration-container {
+    padding: 1.5rem;
+    margin: 1rem;
+    border-radius: 8px;
+  }
+  
+  .login-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+}
+/* ----- End Registration ----- */
