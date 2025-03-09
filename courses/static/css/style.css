@@ -1324,7 +1324,7 @@ a {
 }
 
 .register-button:hover {
-  background-color: #059669;
+  background-color: #7209b7;
   transform: translateY(-1px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -1393,4 +1393,26 @@ a {
     margin-bottom: 1rem;
   }
 }
-/* ----- End Registration ----- */
+/* ----- End Student Registration ----- */
+/* ----- Enroll Button ----- */
+.enroll-btn {
+  border: none;
+  background-color: #f77f00;
+  color: white;
+  padding: 1rem 8rem;
+  border-radius: 6px;
+  margin: 1rem 0 2rem 40rem;
+  cursor: pointer;
+}
+
+.enroll-btn:hover {
+  background-color: #fb5607;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.enroll-text {
+  text-align: center;
+  margin: 1rem 0 2rem 0;
+}
+/* ----- End Enroll Button ----- */

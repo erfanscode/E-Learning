@@ -31,6 +31,25 @@
                 </p>
             </div>
         </div>
+
+        {% if request.user.is_authenticated %}
+            <div class="enroll-form">
+                <form action="{% url 'students:student_enroll_course' %}" method="post">
+                    {% csrf_token %}
+                    {{ enroll_form.as_p }}
+                    <input type="submit" value="ثبت نام در این دوره" class="enroll-btn">
+                </form>
+            </div>
+        {% else %}
+            <div class="enroll-form">
+                <p class="enroll-text">
+                    برای ثبت نام در این دوره، لطفاً ابتدا
+                    <a href="{% url 'students:student_registration' %}">
+                      عضو سایت شوید
+                    </a>
+                </p>
+            </div>
+        {% endif %}
     {% endwith %}
 
 {% endblock %}
