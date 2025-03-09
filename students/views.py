@@ -66,7 +66,7 @@ class StudentCourseDetailView(DetailView):
     def get_queryset(self):
         qs = super().get_queryset()
         return qs.filter(students__in=[self.request.user])
-    
+
     def get_context_data(self, **kwargs):
         # Add additional context data to the template
         context = super().get_context_data(**kwargs)
@@ -81,4 +81,3 @@ class StudentCourseDetailView(DetailView):
             # Get the first module
             context['module'] = course.modules.all()[0]
         return context
-
