@@ -1416,3 +1416,156 @@ a {
   margin: 1rem 0 2rem 0;
 }
 /* ----- End Enroll Button ----- */
+
+/* ----- Student Courses List ----- */
+.student-courses-container {
+  direction: rtl;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.page-title:after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  right: 0;
+  width: 70px;
+  height: 4px;
+  background-color: #4a6cf7;
+  border-radius: 2px;
+}
+
+.student-courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.student-course-card {
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.student-course-header {
+  padding: 1.5rem 1.5rem 0.5rem;
+}
+
+.student-course-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.student-course-subject {
+  display: inline-block;
+  background-color: #f0f5ff;
+  color: #4a6cf7;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+}
+
+.student-course-content {
+  padding: 0.5rem 1.5rem 1.5rem;
+  flex-grow: 1;
+}
+
+.student-course-overview {
+  color: #666;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.student-course-footer {
+  padding: 1.5rem;
+  border-top: 1px solid #f0f0f0;
+  text-align: center;
+}
+
+.student-course-btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.student-course-btn-primary {
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+}
+
+.student-course-btn-primary:hover {
+  background-color: #3a5ce5;
+  transform: translateY(-2px);
+}
+
+/* Empty state styles */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: #f9fafc;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.empty-state-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+}
+
+.empty-state h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.empty-state p {
+  color: #666;
+  margin-bottom: 2rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .student-courses-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .page-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .student-courses-container {
+    padding: 1.5rem 1rem;
+  }
+  
+  .page-title {
+    font-size: 1.75rem;
+  }
+}
+/* ----- End Student Courses List ----- */
