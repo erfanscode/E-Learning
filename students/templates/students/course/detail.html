@@ -1,0 +1,33 @@
+{% extends "parent/base.html" %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+<div class="student-detail-container">
+
+  <div class="student-detail-contents">
+      <h2>بخش‌ها</h2>
+      <ul>
+        {% for m in object.modules.all %}
+          <li data-id="{{ m.id }}" class="student-detail-content-item {% if m == module %}selected{% endif %}">
+            <a href="{% url 'students:student_course_detail_module' object.id m.id %}">
+              <span class="student-detail-content-item-number">درس {{ m.order|add:1 }}</span>
+              <span class="student-detail-content-item-title">{{ m.title }}</span>
+            </a>
+          </li>
+        {% empty %}
+          <li>در حال حاظر هیچ درسی وجود ندارد</li>
+        {% endfor %}
+      </ul>
+  </div>
+
+  <div class="student-detail-content">
+      {% for content in module.contents.all %}
+        {% with item=content.item %}
+          <h2>{{ item.title }}</h2>
+          {{ item.render }}
+        {% endwith %}
+      {% endfor %}
+  </div>
+</div>
+{% endblock %}
