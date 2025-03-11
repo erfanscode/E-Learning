@@ -103,6 +103,15 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# Caching
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+        'LOCATION': '127.0.0.1:27017',
+    }
+}
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
