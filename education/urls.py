@@ -35,6 +35,8 @@ urlpatterns = [
     path('students/', include('students.urls', namespace='students')),
     # debug toolbar
     path('__debug__/', include('debug_toolbar.urls')),
+    # api
+    path('api/', include('courses.api.urls', namespace='api')),
 ]
 
 if settings.DEBUG:
