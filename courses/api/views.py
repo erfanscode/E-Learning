@@ -13,6 +13,7 @@ from courses.api.serializers import (
   CourseSerializer
 )
 
+
 class SubjectListView(generics.ListAPIView):
     """ List all subjects """
     queryset = Subject.objects.all()
