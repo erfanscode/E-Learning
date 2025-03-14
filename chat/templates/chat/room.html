@@ -1,0 +1,93 @@
+{% extends 'parent/base.html' %}
+{% load static %}
+
+{% block title %}Course Chat Room{% endblock %}
+
+{% block content %}
+<div class="chat-container">
+    <!-- Main chat area -->
+    <div class="chat-main">
+        <div class="chat-header">
+            <h2>چت روم دوره {{ course.title }}</h2>
+        </div>
+        
+        <div class="chat-messages">
+            <!-- Example messages -->
+            <div class="message-container received">
+                <div class="message-avatar">
+                    <img src="{% static 'images/placeholder-avatar.png' %}" alt="User Avatar" onerror="this.src='https://ui-avatars.com/api/?name=Prof&background=random'">
+                </div>
+                <div class="message">
+                    <div class="message-sender">Professor Johnson</div>
+                    <div class="message-content">
+                        <p>Hello everyone! Welcome to our chat room for this course module. Please feel free to ask any questions about the material.</p>
+                    </div>
+                    <div class="message-time">10:30 AM</div>
+                </div>
+            </div>
+
+            <div class="message-container sent">
+                <div class="message">
+                    <div class="message-content">
+                        <p>I have a question about the difference between primitive and reference types.</p>
+                    </div>
+                    <div class="message-time">10:35 AM</div>
+                </div>
+            </div>
+
+            <div class="message-container received">
+                <div class="message-avatar">
+                    <img src="{% static 'images/placeholder-avatar.png' %}" alt="User Avatar" onerror="this.src='https://ui-avatars.com/api/?name=Prof&background=random'">
+                </div>
+                <div class="message">
+                    <div class="message-sender">Professor Johnson</div>
+                    <div class="message-content">
+                        <p>Great question! Primitive types store the actual values while reference types store references to the objects in memory.</p>
+                        <p>Primitive types in many languages include: integers, floats, booleans, and characters.</p>
+                    </div>
+                    <div class="message-time">10:40 AM</div>
+                </div>
+            </div>
+
+            <div class="system-message">
+                <span>Jane Smith joined the chat</span>
+            </div>
+
+            <div class="message-container received">
+                <div class="message-avatar">
+                    <img src="{% static 'images/placeholder-avatar.png' %}" alt="User Avatar" onerror="this.src='https://ui-avatars.com/api/?name=Jane&background=random'">
+                </div>
+                <div class="message">
+                    <div class="message-sender">Jane Smith</div>
+                    <div class="message-content">
+                        <p>Hello everyone! Sorry I'm late.</p>
+                    </div>
+                    <div class="message-time">10:45 AM</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-input-area">
+            <div id="chat-form">
+                <div class="chat-input-container">
+                    <input type="text" id="chat-message-input" placeholder="متن..">
+                    <input type="submit" id="chat-message-submit" value="">
+                    <div class="submit-icon-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block include_js %}
+{% endblock %}
+
+{% block domready%}
+{% endblock %}
