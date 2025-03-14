@@ -161,3 +161,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly', 
     ]
 }
+
+
+# Channels
+ASGI_APPLICATION = 'education.asgi.application'
