@@ -33,6 +33,7 @@ urlpatterns = [
     path('course/', include('courses.urls', namespace='courses')),
     path('', CourseListView.as_view(), name='course_list'),
     path('students/', include('students.urls', namespace='students')),
+    path('chat/', include('chat.urls', namespace='chat')),
     # debug toolbar
     path('__debug__/', include('debug_toolbar.urls')),
     # api
