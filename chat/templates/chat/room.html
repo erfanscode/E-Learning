@@ -1,7 +1,7 @@
 {% extends 'parent/base.html' %}
 {% load static %}
 
-{% block title %}Course Chat Room{% endblock %}
+{% block title %}چت روم دوره{% endblock %}
 
 {% block content %}
 <div class="chat-container">
@@ -11,60 +11,27 @@
             <h2>چت روم دوره {{ course.title }}</h2>
         </div>
         
-        <div class="chat-messages">
+        <div class="chat-messages" id="chat">
             <!-- Example messages -->
-            <div class="message-container received">
-                <div class="message-avatar">
-                    <img src="{% static 'images/placeholder-avatar.png' %}" alt="User Avatar" onerror="this.src='https://ui-avatars.com/api/?name=Prof&background=random'">
-                </div>
-                <div class="message">
-                    <div class="message-sender">Professor Johnson</div>
-                    <div class="message-content">
-                        <p>Hello everyone! Welcome to our chat room for this course module. Please feel free to ask any questions about the material.</p>
+            {% for message in latest_messages %}
+                <div class="message-container {% if message.user == request.user %}sent{% else %}received{% endif %}">
+                    <div class="message-avatar">
+                        <img src="{% static 'images/placeholder-avatar.png' %}" alt="User Avatar" onerror="this.src='https://ui-avatars.com/api/?name=Prof&background=random'">
                     </div>
-                    <div class="message-time">10:30 AM</div>
-                </div>
-            </div>
-
-            <div class="message-container sent">
-                <div class="message">
-                    <div class="message-content">
-                        <p>I have a question about the difference between primitive and reference types.</p>
+                    <div class="message">
+                        <div class="message-sender">{{ message.user.username }}</div>
+                        <div class="message-content">
+                            <p>{{ message.content }}</p>
+                        </div>
+                        <div class="message-time">{{ message.sent_on|date:"Y.m.d H:i A" }}</div>
                     </div>
-                    <div class="message-time">10:35 AM</div>
                 </div>
-            </div>
-
-            <div class="message-container received">
-                <div class="message-avatar">
-                    <img src="{% static 'images/placeholder-avatar.png' %}" alt="User Avatar" onerror="this.src='https://ui-avatars.com/api/?name=Prof&background=random'">
-                </div>
-                <div class="message">
-                    <div class="message-sender">Professor Johnson</div>
-                    <div class="message-content">
-                        <p>Great question! Primitive types store the actual values while reference types store references to the objects in memory.</p>
-                        <p>Primitive types in many languages include: integers, floats, booleans, and characters.</p>
-                    </div>
-                    <div class="message-time">10:40 AM</div>
-                </div>
-            </div>
+            {% endfor %}
 
             <div class="system-message">
                 <span>Jane Smith joined the chat</span>
             </div>
 
-            <div class="message-container received">
-                <div class="message-avatar">
-                    <img src="{% static 'images/placeholder-avatar.png' %}" alt="User Avatar" onerror="this.src='https://ui-avatars.com/api/?name=Jane&background=random'">
-                </div>
-                <div class="message">
-                    <div class="message-sender">Jane Smith</div>
-                    <div class="message-content">
-                        <p>Hello everyone! Sorry I'm late.</p>
-                    </div>
-                    <div class="message-time">10:45 AM</div>
-                </div>
-            </div>
         </div>
         
         <div class="chat-input-area">
@@ -87,7 +54,64 @@
 {% endblock %}
 
 {% block include_js %}
+    {{ course.id|json_script:"course-id" }}
 {% endblock %}
 
 {% block domready%}
+    const courseId = JSON.parse(
+        document.getElementById('course-id').textContent
+    );
+    const url = 'ws://' + window.location.host +
+                '/ws/chat/room/' + courseId + '/';
+    const chatSocket = new WebSocket(url);
+
+    chatSocket.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        const chat = document.getElementById('chat');
+        
+        const dateOptions = {hour: 'numeric', minute: 'numeric', hour12: true};
+        const datetime = new Date(data.date)
+
+        chat.innerHTML += 
+            '<div class="message-container">' +
+                '<div class="message-avatar">' +
+                    '<img src="{% static "images/placeholder-avatar.png" %}" alt="User Avatar" onerror="this.src=\'https://ui-avatars.com/api/?name=Prof&background=random\'">' +
+                '</div>' +
+                '<div class="message">' + 
+                    '<div class="message-sender">' + data.user + '</div>' +
+                    '<div class="message-content">' + data.message + '</div>' +
+                    '<div class="message-time">' + datetime.toLocaleTimeString('fa-IR', dateOptions) + '</div>' +
+                '</div>' +
+            '</div>';
+        chat.scrollTop = chat.scrollHeight;
+    }
+
+    chatSocket.onclose = function(event) {
+        console.error('Chat socket closed unexpectedly');
+    }
+
+    const input = document.getElementById('chat-message-input');
+    const submitButton = document.getElementById('chat-message-submit');
+
+    submitButton.addEventListener('click', function(event) {
+        const message = input.value;
+        if (message) {
+            // Send message in JSON format
+            chatSocket.send(JSON.stringify({'message': message}));
+            // Clear input
+            input.value = '';
+            input.focus();
+        }
+    });
+
+    input.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger click event on button
+            submitButton.click();
+        }
+    });
+
+    input.focus();
 {% endblock %}
