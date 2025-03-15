@@ -58,7 +58,7 @@ class StudentCourseListView(LoginRequiredMixin, ListView):
         return qs.filter(students__in=[self.request.user])
 
 
-class StudentCourseDetailView(DetailView):
+class StudentCourseDetailView(LoginRequiredMixin, DetailView):
     """ View for displaying details of a student's course """
     model = Course
     template_name = 'students/course/detail.html'
