@@ -55,11 +55,15 @@
 
 {% block include_js %}
     {{ course.id|json_script:"course-id" }}
+    {{ request.user.username|json_script:"request-user"}}
 {% endblock %}
 
 {% block domready%}
     const courseId = JSON.parse(
         document.getElementById('course-id').textContent
+    );
+    const requestUser = JSON.parse(
+        document.getElementById('request-user').textContent
     );
     const url = 'ws://' + window.location.host +
                 '/ws/chat/room/' + courseId + '/';
@@ -70,17 +74,21 @@
         const chat = document.getElementById('chat');
         
         const dateOptions = {hour: 'numeric', minute: 'numeric', hour12: true};
-        const datetime = new Date(data.date)
+        const datetime = new Date(data.datetime).toLocaleTimeString('fa-IR', dateOptions);
+        const isMe = data.user === requestUser;
+        const source = isMe ? 'sent' : 'received';
+        const avatar = isMe ? requestUser : data.user;
+        const name = isMe ? 'Me' : data.user;
 
         chat.innerHTML += 
-            '<div class="message-container">' +
-                '<div class="message-avatar">' +
+            '<div class="message-container ' + source + '">' +
+                '<div class="message-avatar ' + avatar + '">' +
                     '<img src="{% static "images/placeholder-avatar.png" %}" alt="User Avatar" onerror="this.src=\'https://ui-avatars.com/api/?name=Prof&background=random\'">' +
                 '</div>' +
                 '<div class="message">' + 
-                    '<div class="message-sender">' + data.user + '</div>' +
+                    '<div class="message-sender">' + name + '</div>' +
                     '<div class="message-content">' + data.message + '</div>' +
-                    '<div class="message-time">' + datetime.toLocaleTimeString('fa-IR', dateOptions) + '</div>' +
+                    '<div class="message-time">' + datetime + '</div>' +
                 '</div>' +
             '</div>';
         chat.scrollTop = chat.scrollHeight;
