@@ -50,6 +50,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'datetime': now.isoformat(),
             }
         )
+        # Persist message
+        await self.persist_message(message)
 
     """ Receive message from room group """
     async def chat_message(self, event):
