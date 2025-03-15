@@ -2067,3 +2067,19 @@ a {
   }
 }
 /* ----- End Chat Room Styles ----- */
+/* ----- Button Chat Room Styles ----- */
+.btn-chat-room {
+  background-color: #8338ec;
+  padding: .5rem 2.5rem;
+  border-radius: 5px;
+  color: #f2f2f2;
+}
+.btn-chat-room:hover {
+  background-color: #7209b7;
+}
+.h4-chat-room {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+/* ----- End Button Chat Room Styles ----- */

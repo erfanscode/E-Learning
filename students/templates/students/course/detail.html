@@ -20,6 +20,11 @@
           <li>در حال حاظر هیچ درسی وجود ندارد</li>
         {% endfor %}
       </ul>
+      <h4 class="h4-chat-room">
+        <a href="{% url 'chat:course_chat_room' object.id %}" class="btn-chat-room">
+          چت روم دوره
+        </a>
+      </h4>
   </div>
 
   <div class="student-detail-content">
