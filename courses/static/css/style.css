@@ -1871,7 +1871,7 @@ a {
 
 .message-container.sent {
   align-self: flex-start;
-  flex-direction: row-reverse;
+  flex-direction: row;
 }
 
 .message-avatar {
@@ -1903,6 +1903,10 @@ a {
   background-color: #0ea5e9;
   color: white;
   border-top-right-radius: 0;
+}
+
+.message-container.sent .message-sender {
+  color: #e5e5e5;
 }
 
 .message-sender {
