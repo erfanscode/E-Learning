@@ -103,3 +103,6 @@ dmypy.json
 
 # api examples
 api_examples/
+
+# data
+data/
