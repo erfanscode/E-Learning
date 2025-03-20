@@ -106,3 +106,7 @@ api_examples/
 
 # data
 data/
+
+# uwsgi
+config/
+uwsgi_app.sock
