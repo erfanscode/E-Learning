@@ -6,20 +6,28 @@ services:
     restart: always
     volumes:
       - ./data/db:/var/lib/postgresql/data
+    env_file:
+      - .env
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
+  cache:
+    image: redis:7.4
+    restart: always
+    volumes:
+      - ./data/cache:/data
+
   web:
     build: .
-    ports:
-      - "8000:8000"
+    command: ["./wait-for-it.sh", "db:5432", "--",
+              "uwsgi", "--ini", "/education/config/uwsgi/uwsgi.ini"]
+    restart: always
     volumes:
       - .:/education
-    command: ["./wait-for-it.sh", "db:5432", "--",
-              "python", "/education/manage.py", "runserver",
-              "0.0.0.0:8000"]
+    env_file:
+      - .env
     environment:
       - DJANGO_SETTINGS_MODULE=education.settings.prod
       - POSTGRES_DB=${POSTGRES_DB}
@@ -28,3 +36,4 @@ services:
       - SECRET_KEY=${SECRET_KEY}
     depends_on:
       - db
+      - cache
