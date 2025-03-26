@@ -1,44 +1,28 @@
-FROM python:3.11-alpine
-LABEL maintainer="erfanscode"
+# Pull official base Python Docker image
+FROM python:3.12
 
 # Set environment variables
-ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# Working directory
-WORKDIR /education
+# Set work directory
+WORKDIR /code
 
-# Copy files
-COPY ./requirements.txt /tmp/requirements.txt
-COPY ./requirements.dev.txt /tmp/requirements.dev.txt
-COPY . .
-
-# Set the environment variable PATH
-ENV PATH="/py/bin:$PATH"
+# Install Nginx
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    nginx \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install dependencies
-ARG DEV=false
-RUN python -m venv /py && \
-    /py/bin/pip install --upgrade pip && \
-    apk add --update --no-cache bash postgresql-client && \
-    apk add --update --no-cache --virtual .tmp-build-deps \
-        build-base postgresql-dev musl-dev linux-headers && \
-    /py/bin/pip install -r /tmp/requirements.txt && \
-    if [ $DEV = "true" ]; \
-        then /py/bin/pip install -r /tmp/requirements.dev.txt; \
-    fi && \
-    rm -rf /tmp
+RUN pip install --upgrade pip
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
-# Create and configure user
-RUN adduser \
-    --disabled-password \
-    --no-create-home \
-    django-user && \
-    chown -R django-user:django-user /education
+# Copy the Django project
+COPY . .
 
-# Expose port for application
-EXPOSE 8000
+# Setup entrypoint script
+COPY entrypoint.sh /code/entrypoint.sh
+RUN chmod +x /code/entrypoint.sh
 
-# Switch to 'django-user' to avoid running as root for security reasons
-USER django-user
+CMD ["/code/entrypoint.sh"]
