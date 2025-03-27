@@ -110,3 +110,9 @@ data/
 # uwsgi
 config/
 uwsgi_app.sock
+
+# Live
+socket/
+ssl/
+entrypoint.sh
+
