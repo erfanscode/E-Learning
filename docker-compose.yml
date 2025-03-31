@@ -25,7 +25,6 @@ services:
       - socket:/socket
     environment:
       - DJANGO_SETTINGS_MODULE=education.settings.prod
-      # - DJANGO_SETTINGS_MODULE=education.settings.local
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -43,6 +42,23 @@ services:
     ports:
       - "80:80"
       - "443:443"
+
+  daphne:
+    build: .
+    working_dir: /code/
+    command: ["./wait-for-it.sh", "db:5432", "--", "daphne", "-u", "/socket/daphne.sock", "education.asgi:application"]
+    restart: always
+    volumes:
+      - .:/code
+      - socket:/socket
+    environment:
+      - DJANGO_SETTINGS_MODULE=education.settings.prod
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    depends_on:
+      - db
+      - cache
 
 volumes:
   socket:
