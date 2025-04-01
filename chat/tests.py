@@ -111,7 +111,7 @@ class ChatConsumerTests(TestCase):
     async def test_chat_consumer(self):
         # Create application with the routing
         application = URLRouter([
-            re_path(r'ws/chat/(?P<course_id>\d+)/$', ChatConsumer.as_asgi()),
+            re_path(r'ws/chat/(?P<course_id>[0-9]+)/$', ChatConsumer.as_asgi()),
         ])
         
         # Connect to the WebSocket
