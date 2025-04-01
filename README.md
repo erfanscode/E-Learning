@@ -1,5 +1,7 @@
 # E-Learning Platform
 
+[![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](tests/README.md)
+
 A comprehensive e-learning system built with Django, featuring course management, student registration, real-time chat functionality, and more.
 
 ## 🌟 Features
@@ -142,6 +144,54 @@ The platform provides a RESTful API using Django REST Framework. Endpoints inclu
 ## 🔄 WebSockets
 
 Real-time chat functionality is implemented using Django Channels and WebSockets. The chat is available for enrolled students and course instructors.
+
+## 🧪 Testing
+
+The platform includes a comprehensive test suite covering models, views, APIs, and WebSocket functionality.
+
+### Running Tests
+
+#### Using Django's test command
+
+```bash
+# Run all tests with test settings (recommended)
+python manage.py test --settings=education.settings.test
+
+# Run tests for a specific app
+python manage.py test courses --settings=education.settings.test
+```
+
+#### Using pytest
+
+```bash
+# Install pytest and pytest-django
+pip install pytest pytest-django
+
+# Run all tests using pytest.ini configuration
+python -m pytest
+
+# Run tests with verbose output
+python -m pytest -v
+```
+
+#### Using Coverage
+
+```bash
+# Install coverage
+pip install coverage
+
+# Run tests with coverage
+coverage run --source=courses,students,chat manage.py test --settings=education.settings.test
+
+# Generate a report
+coverage report
+
+# Generate an HTML report
+coverage html
+# The report will be available in htmlcov/index.html
+```
+
+For more detailed information about testing, see [tests/README.md](tests/README.md).
 
 ## 🙏 Acknowledgements
 
