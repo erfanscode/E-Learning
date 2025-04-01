@@ -64,7 +64,7 @@ jobs:
     - name: Setup test database settings
       run: |
         mkdir -p education/settings/
-        echo """
+        cat > education/settings/ci.py << 'EOL'
 from education.settings.base import *
 
 DATABASES = {
@@ -105,7 +105,7 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
 }
-""" > education/settings/ci.py
+EOL
 
     - name: Run Django tests
       run: |
