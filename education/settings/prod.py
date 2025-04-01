@@ -6,7 +6,7 @@ ADMINS = [
     ('CodeErfan', 'codeerfan@gmail.com'),
 ]
 
-ALLOWED_HOSTS = ['elearning.com', 'www.elearning.com']
+ALLOWED_HOSTS = ['.elearning.com']
 
 DATABASES = {
     'default': {
