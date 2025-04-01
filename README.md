@@ -1,7 +1,5 @@
 # E-Learning Platform
 
-[![Tests](https://github.com/erfanscode/e-learning/actions/workflows/tests.yml/badge.svg)](https://github.com/erfanscode/e-learning/actions/workflows/tests.yml)
-[![codecov](https://codecov.io/gh/erfanscode/e-learning/branch/main/graph/badge.svg)](https://codecov.io/gh/erfanscode/e-learning)
 [![Python](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-312/)
 [![Django](https://img.shields.io/badge/django-5.1-green.svg)](https://www.djangoproject.com/)
 
