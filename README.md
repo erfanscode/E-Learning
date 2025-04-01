@@ -1,6 +1,9 @@
 # E-Learning Platform
 
-[![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](tests/README.md)
+[![Tests](https://github.com/yourusername/e-learning/actions/workflows/tests.yml/badge.svg)](https://github.com/yourusername/e-learning/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/gh/yourusername/e-learning/branch/main/graph/badge.svg)](https://codecov.io/gh/yourusername/e-learning)
+[![Python](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-312/)
+[![Django](https://img.shields.io/badge/django-5.1-green.svg)](https://www.djangoproject.com/)
 
 A comprehensive e-learning system built with Django, featuring course management, student registration, real-time chat functionality, and more.
 
