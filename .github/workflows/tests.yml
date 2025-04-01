@@ -61,51 +61,47 @@ jobs:
         echo "DEBUG=False" >> .env
         echo "ALLOWED_HOSTS=.localhost,127.0.0.1" >> .env
 
-    - name: Setup test database settings
+    - name: Setup test database settings - Part 1
       run: |
         mkdir -p education/settings/
-        cat > education/settings/ci.py << 'EOL'
-from education.settings.base import *
+        echo "from education.settings.base import *" > education/settings/ci.py
+        echo "" >> education/settings/ci.py
+        echo "DATABASES = {" >> education/settings/ci.py
+        echo "    'default': {" >> education/settings/ci.py
+        echo "        'ENGINE': 'django.db.backends.postgresql'," >> education/settings/ci.py
+        echo "        'NAME': 'postgres'," >> education/settings/ci.py
+        echo "        'USER': 'postgres'," >> education/settings/ci.py
+        echo "        'PASSWORD': 'postgres'," >> education/settings/ci.py
+        echo "        'HOST': 'localhost'," >> education/settings/ci.py
+        echo "        'PORT': '5432'," >> education/settings/ci.py
+        echo "    }" >> education/settings/ci.py
+        echo "}" >> education/settings/ci.py
+        echo "" >> education/settings/ci.py
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+    - name: Setup test database settings - Part 2
+      run: |
+        echo "PASSWORD_HASHERS = ['django.contrib.auth.hashers.MD5PasswordHasher']" >> education/settings/ci.py
+        echo "" >> education/settings/ci.py
+        echo "DEBUG = False" >> education/settings/ci.py
+        echo "" >> education/settings/ci.py
+        echo "CACHES = {" >> education/settings/ci.py
+        echo "    'default': {" >> education/settings/ci.py
+        echo "        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'," >> education/settings/ci.py
+        echo "    }" >> education/settings/ci.py
+        echo "}" >> education/settings/ci.py
 
-# Use a fast password hasher for testing
-PASSWORD_HASHERS = [
-    'django.contrib.auth.hashers.MD5PasswordHasher',
-]
-
-# Turn off debug to simulate a production environment
-DEBUG = False
-
-# Cache in memory for testing
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-    }
-}
-
-# Use in-memory channel layer for testing
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer',
-    }
-}
-
-# Disable logging during tests
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': True,
-}
-EOL
+    - name: Setup test database settings - Part 3
+      run: |
+        echo "CHANNEL_LAYERS = {" >> education/settings/ci.py
+        echo "    'default': {" >> education/settings/ci.py
+        echo "        'BACKEND': 'channels.layers.InMemoryChannelLayer'," >> education/settings/ci.py
+        echo "    }" >> education/settings/ci.py
+        echo "}" >> education/settings/ci.py
+        echo "" >> education/settings/ci.py
+        echo "LOGGING = {" >> education/settings/ci.py
+        echo "    'version': 1," >> education/settings/ci.py
+        echo "    'disable_existing_loggers': True," >> education/settings/ci.py
+        echo "}" >> education/settings/ci.py
 
     - name: Run Django tests
       run: |
